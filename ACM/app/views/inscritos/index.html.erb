@@ -1,0 +1,26 @@
+<h1>Listing inscritos</h1>
+
+<table>
+  <tr>
+    <th>Idpart</th>
+    <th>Idconcurso</th>
+    <th>Puntaje</th>
+    <th>Posicion</th>
+  </tr>
+
+<% @inscritos.each do |inscrito| %>
+  <tr>
+    <td><%=h inscrito.idpart_id %></td>
+    <td><%=h inscrito.idconcurso_id %></td>
+    <td><%=h inscrito.puntaje %></td>
+    <td><%=h inscrito.posicion %></td>
+    <td><%= link_to 'Show', inscrito %></td>
+    <td><%= link_to 'Edit', edit_inscrito_path(inscrito) %></td>
+    <td><%= link_to 'Destroy', inscrito, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New inscrito', new_inscrito_path %>

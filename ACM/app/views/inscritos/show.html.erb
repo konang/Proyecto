@@ -1,0 +1,23 @@
+<p>
+  <b>Idpart:</b>
+  <%=h @inscrito.idpart_id %>
+</p>
+
+<p>
+  <b>Idconcurso:</b>
+  <%=h @inscrito.idconcurso_id %>
+</p>
+
+<p>
+  <b>Puntaje:</b>
+  <%=h @inscrito.puntaje %>
+</p>
+
+<p>
+  <b>Posicion:</b>
+  <%=h @inscrito.posicion %>
+</p>
+
+
+<%= link_to 'Edit', edit_inscrito_path(@inscrito) %> |
+<%= link_to 'Back', inscritos_path %>

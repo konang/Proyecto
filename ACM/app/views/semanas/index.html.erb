@@ -1,0 +1,28 @@
+<h1>Listing semanas</h1>
+
+<table>
+  <tr>
+    <th>Idconcurso</th>
+    <th>Idprob</th>
+    <th>Semana</th>
+    <th>Fecha ini</th>
+    <th>Fecha fin</th>
+  </tr>
+
+<% @semanas.each do |semana| %>
+  <tr>
+    <td><%=h semana.idconcurso_id %></td>
+    <td><%=h semana.idprob_id %></td>
+    <td><%=h semana.semana %></td>
+    <td><%=h semana.fecha_ini %></td>
+    <td><%=h semana.fecha_fin %></td>
+    <td><%= link_to 'Show', semana %></td>
+    <td><%= link_to 'Edit', edit_semana_path(semana) %></td>
+    <td><%= link_to 'Destroy', semana, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New semana', new_semana_path %>

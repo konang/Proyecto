@@ -1,0 +1,28 @@
+<h1>Listing problems</h1>
+
+<table>
+  <tr>
+    <th>Idprob</th>
+    <th>Tip</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Value</th>
+  </tr>
+
+<% @problems.each do |problem| %>
+  <tr>
+    <td><%=h problem.idprob %></td>
+    <td><%=h problem.tip %></td>
+    <td><%=h problem.name %></td>
+    <td><%=h problem.description %></td>
+    <td><%=h problem.value %></td>
+    <td><%= link_to 'Show', problem %></td>
+    <td><%= link_to 'Edit', edit_problem_path(problem) %></td>
+    <td><%= link_to 'Destroy', problem, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New problem', new_problem_path %>

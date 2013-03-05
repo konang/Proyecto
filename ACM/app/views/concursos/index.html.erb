@@ -1,0 +1,24 @@
+<h1>Listing concursos</h1>
+
+<table>
+  <tr>
+    <th>Idconcurso</th>
+    <th>Fecha ini</th>
+    <th>Fecha fin</th>
+  </tr>
+
+<% @concursos.each do |concurso| %>
+  <tr>
+    <td><%=h concurso.idconcurso %></td>
+    <td><%=h concurso.fecha_ini %></td>
+    <td><%=h concurso.fecha_fin %></td>
+    <td><%= link_to 'Show', concurso %></td>
+    <td><%= link_to 'Edit', edit_concurso_path(concurso) %></td>
+    <td><%= link_to 'Destroy', concurso, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New concurso', new_concurso_path %>

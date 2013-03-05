@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  idconcurso_id: 1
+  idprob_id: 1
+  semana: 1
+  fecha_ini: 2013-03-04
+  fecha_fin: 2013-03-04
+
+two:
+  idconcurso_id: 1
+  idprob_id: 1
+  semana: 1
+  fecha_ini: 2013-03-04
+  fecha_fin: 2013-03-04

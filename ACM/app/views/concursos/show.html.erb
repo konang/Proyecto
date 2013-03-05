@@ -1,0 +1,18 @@
+<p>
+  <b>Idconcurso:</b>
+  <%=h @concurso.idconcurso %>
+</p>
+
+<p>
+  <b>Fecha ini:</b>
+  <%=h @concurso.fecha_ini %>
+</p>
+
+<p>
+  <b>Fecha fin:</b>
+  <%=h @concurso.fecha_fin %>
+</p>
+
+
+<%= link_to 'Edit', edit_concurso_path(@concurso) %> |
+<%= link_to 'Back', concursos_path %>

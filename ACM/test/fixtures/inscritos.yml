@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  idpart_id: MyString
+  idconcurso_id: 1
+  puntaje: 1
+  posicion: 1
+
+two:
+  idpart_id: MyString
+  idconcurso_id: 1
+  puntaje: 1
+  posicion: 1

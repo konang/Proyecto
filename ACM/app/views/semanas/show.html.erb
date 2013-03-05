@@ -1,0 +1,28 @@
+<p>
+  <b>Idconcurso:</b>
+  <%=h @semana.idconcurso_id %>
+</p>
+
+<p>
+  <b>Idprob:</b>
+  <%=h @semana.idprob_id %>
+</p>
+
+<p>
+  <b>Semana:</b>
+  <%=h @semana.semana %>
+</p>
+
+<p>
+  <b>Fecha ini:</b>
+  <%=h @semana.fecha_ini %>
+</p>
+
+<p>
+  <b>Fecha fin:</b>
+  <%=h @semana.fecha_fin %>
+</p>
+
+
+<%= link_to 'Edit', edit_semana_path(@semana) %> |
+<%= link_to 'Back', semanas_path %>

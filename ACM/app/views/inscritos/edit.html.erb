@@ -1,0 +1,28 @@
+<h1>Editing inscrito</h1>
+
+<% form_for(@inscrito) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :idpart_id %><br />
+    <%= f.collection_select :idpart_id, Participant.all, :idpart,  :idpart %>
+  </p>
+  <p>
+    <%= f.label :idconcurso_id %><br />
+    <%= f.collection_select :idconcurso_id, Concurso.all, :idconcurso,  :idconcurso %>
+  </p>
+  <p>
+    <%= f.label :puntaje %><br />
+    <%= f.text_field :puntaje %>
+  </p>
+  <p>
+    <%= f.label :posicion %><br />
+    <%= f.text_field :posicion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @inscrito %> |
+<%= link_to 'Back', inscritos_path %>

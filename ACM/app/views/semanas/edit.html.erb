@@ -1,0 +1,32 @@
+<h1>Editing semana</h1>
+
+<% form_for(@semana) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :idconcurso_id %><br />
+   <%= f.collection_select :idconcurso_id, Concurso.all, :idconcurso,  :idconcurso %>
+  </p>
+  <p>
+    <%= f.label :idprob_id %><br />
+    <%= f.collection_select :idprob_id, Problem.all, :idprob,  :idprob %>
+  </p>
+  <p>
+    <%= f.label :semana %><br />
+    <%= f.text_field :semana %>
+  </p>
+  <p>
+    <%= f.label :fecha_ini %><br />
+    <%= f.date_select :fecha_ini %>
+  </p>
+  <p>
+    <%= f.label :fecha_fin %><br />
+    <%= f.date_select :fecha_fin %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @semana %> |
+<%= link_to 'Back', semanas_path %>

@@ -1,0 +1,24 @@
+<h1>Editing concurso</h1>
+
+<% form_for(@concurso) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :idconcurso %><br />
+    <%= f.text_field :idconcurso %>
+  </p>
+  <p>
+    <%= f.label :fecha_ini %><br />
+    <%= f.date_select :fecha_ini %>
+  </p>
+  <p>
+    <%= f.label :fecha_fin %><br />
+    <%= f.date_select :fecha_fin %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @concurso %> |
+<%= link_to 'Back', concursos_path %>
