@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  idProb: 1
+  desc: MyString
+  tip: MyString
+  nom: MyString
+  valor: 1
+  idSemana_id: 1
+
+two:
+  idProb: 1
+  desc: MyString
+  tip: MyString
+  nom: MyString
+  valor: 1
+  idSemana_id: 1

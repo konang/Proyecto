@@ -1,0 +1,59 @@
+<!--
+  #Archivo: edit.html.erb
+ #Proyecto: Aplicación Móvil para plataforma Android Training Assistant
+ #Autor(es): Andrés Rocha González
+ # Fecha de creación: 27/Marzo/2013
+ #Fecha de última actualización: 27/Marzo/2013
+ #Descripción general: pantalla para editar un participante
+ #ITESM de Monterrey. Todos los derechos reservados.
+ #This file is part of Aplicación Móvil para plataforma Android Training Assistant.
+ #Aplicación Móvil para plataforma Android Training Assistant is free software: you can redistribute it and/or modify
+ #it under the terms of the GNU General Public License as published by
+ #the Free Software Foundation, either version 3 of the License, or
+ #(at your option) any later version.
+
+ # Aplicación Móvil para plataforma Android Training Assistant
+ # is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+
+ # You should have received a copy of the GNU General Public License
+ # along with Aplicación Móvil para plataforma Android Training Assistant.
+ # If not, see <http://www.gnu.org/licenses/>.*/
+
+-->
+
+
+<h1>Editar Participante</h1>
+
+<% form_for(@participante) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :idPart %><br />
+    <%= f.text_field :idPart %>
+  </p>
+  <p>
+    <%= f.label :mat %><br />
+    <%= f.text_field :mat %>
+  </p>
+  <p>
+    <%= f.label :nom %><br />
+    <%= f.text_field :nom %>
+  </p>
+  <p>
+    <%= f.label :puntaje %><br />
+    <%= f.text_field :puntaje %>
+  </p>
+  <p>
+    <%= f.label :pos %><br />
+    <%= f.text_field :pos %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @participante %> |
+<%= link_to 'Back', participantes_path %>

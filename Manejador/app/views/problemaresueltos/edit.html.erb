@@ -1,0 +1,79 @@
+<!--
+  #Archivo: edit.html.erb
+ #Proyecto: Aplicación Móvil para plataforma Android Training Assistant
+ #Autor(es): Andrés Rocha González
+ # Fecha de creación: 27/Marzo/2013
+ #Fecha de última actualización: 27/Marzo/2013
+ #Descripción general: pantalla para editar un problema resuelto
+ #ITESM de Monterrey. Todos los derechos reservados.
+ #This file is part of Aplicación Móvil para plataforma Android Training Assistant.
+ #Aplicación Móvil para plataforma Android Training Assistant is free software: you can redistribute it and/or modify
+ #it under the terms of the GNU General Public License as published by
+ #the Free Software Foundation, either version 3 of the License, or
+ #(at your option) any later version.
+
+ # Aplicación Móvil para plataforma Android Training Assistant
+ # is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+
+ # You should have received a copy of the GNU General Public License
+ # along with Aplicación Móvil para plataforma Android Training Assistant.
+ # If not, see <http://www.gnu.org/licenses/>.*/
+
+-->
+
+
+<h1>Editar Problema Resuelto</h1>
+
+<% form_for(@problemaresuelto) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :idSubida %><br />
+    <%= f.text_field :idSubida %>
+  </p>
+  <p>
+    <%= f.label :fechasub %><br />
+    <%= f.date_select :fechasub %>
+  </p>
+  <p>
+    <%= f.label :estatus %><br />
+    <%= f.text_field :estatus %>
+  </p>
+  <p>
+    <%= f.label :tiempo %><br />
+    <%= f.text_field :tiempo %>
+  </p>
+  <p>
+    <%= f.label :memoria %><br />
+    <%= f.text_field :memoria %>
+  </p>
+  <p>
+    <%= f.label :tam %><br />
+    <%= f.text_field :tam %>
+  </p>
+  <p>
+    <%= f.label :leng %><br />
+    <%= f.text_field :leng %>
+  </p>
+
+  <p>
+    <%= f.label :idPart_id %><br />
+    <%= f.collection_select :idPart_id, Participante.all, :idPart,  :idPart %>
+
+  </p>
+
+  <p>
+    <%= f.label :idProb_id %><br />
+    <%= f.collection_select :idProb_id, Problema.all, :idProb,  :idProb %>
+
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @problemaresuelto %> |
+<%= link_to 'Back', problemaresueltos_path %>

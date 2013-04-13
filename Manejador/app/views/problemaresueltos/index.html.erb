@@ -1,0 +1,60 @@
+<!--
+  #Archivo: index.html.erb
+ #Proyecto: Aplicación Móvil para plataforma Android Training Assistant
+ #Autor(es): Andrés Rocha González
+ # Fecha de creación: 27/Marzo/2013
+ #Fecha de última actualización: 27/Marzo/2013
+ #Descripción general: pantalla incial para una problema resueto
+ #ITESM de Monterrey. Todos los derechos reservados.
+ #This file is part of Aplicación Móvil para plataforma Android Training Assistant.
+ #Aplicación Móvil para plataforma Android Training Assistant is free software: you can redistribute it and/or modify
+ #it under the terms of the GNU General Public License as published by
+ #the Free Software Foundation, either version 3 of the License, or
+ #(at your option) any later version.
+
+ # Aplicación Móvil para plataforma Android Training Assistant
+ # is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+
+ # You should have received a copy of the GNU General Public License
+ # along with Aplicación Móvil para plataforma Android Training Assistant.
+ # If not, see <http://www.gnu.org/licenses/>.*/
+
+-->
+
+<h1>Lista de Problemas Resueltos</h1>
+
+<table>
+  <tr>
+    <th>Idsubida</th>
+    <th>Fechasub</th>
+    <th>Estatus</th>
+    <th>Tiempo</th>
+    <th>Memoria</th>
+    <th>Tam</th>
+    <th>Leng</th>
+    <th>Idpart</th>
+    <th>Idprob</th>
+  </tr>
+
+<% @problemaresueltos.each do |problemaresuelto| %>
+  <tr>
+    <td><%=h problemaresuelto.idSubida %></td>
+    <td><%=h problemaresuelto.fechasub %></td>
+    <td><%=h problemaresuelto.estatus %></td>
+    <td><%=h problemaresuelto.tiempo %></td>
+    <td><%=h problemaresuelto.memoria %></td>
+    <td><%=h problemaresuelto.tam %></td>
+    <td><%=h problemaresuelto.leng %></td>
+    <td><%=h problemaresuelto.idPart_id %></td>
+    <td><%=h problemaresuelto.idProb_id %></td>
+    <td><%= link_to 'Show', problemaresuelto %></td>
+    <td><%= link_to 'Edit', edit_problemaresuelto_path(problemaresuelto) %></td>
+    <td><%= link_to 'Destroy', problemaresuelto, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

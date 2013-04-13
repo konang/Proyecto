@@ -1,0 +1,54 @@
+<!--
+  #Archivo: show.html.erb
+ #Proyecto: Aplicación Móvil para plataforma Android Training Assistant
+ #Autor(es): Andrés Rocha González
+ # Fecha de creación: 27/Marzo/2013
+ #Fecha de última actualización: 27/Marzo/2013
+ #Descripción general: pantalla mostrar un participante
+ #ITESM de Monterrey. Todos los derechos reservados.
+ #This file is part of Aplicación Móvil para plataforma Android Training Assistant.
+ #Aplicación Móvil para plataforma Android Training Assistant is free software: you can redistribute it and/or modify
+ #it under the terms of the GNU General Public License as published by
+ #the Free Software Foundation, either version 3 of the License, or
+ #(at your option) any later version.
+
+ # Aplicación Móvil para plataforma Android Training Assistant
+ # is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+
+ # You should have received a copy of the GNU General Public License
+ # along with Aplicación Móvil para plataforma Android Training Assistant.
+ # If not, see <http://www.gnu.org/licenses/>.*/
+
+-->
+
+<p>
+  <b>Idpart:</b>
+  <%=h @participante.idPart %>
+</p>
+
+<p>
+  <b>Mat:</b>
+  <%=h @participante.mat %>
+</p>
+
+<p>
+  <b>Nom:</b>
+  <%=h @participante.nom %>
+</p>
+
+<p>
+  <b>Puntaje:</b>
+  <%=h @participante.puntaje %>
+</p>
+
+<p>
+  <b>Pos:</b>
+  <%=h @participante.pos %>
+</p>
+
+
+<%= link_to 'Edit', edit_participante_path(@participante) %> |
+<%= link_to 'Back', participantes_path %>

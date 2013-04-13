@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  idSubida: 1
+  fechasub: 2013-03-26
+  estatus: MyString
+  tiempo: 1
+  memoria: 1
+  tam: 1
+  leng: MyString
+  idPart_id: MyString
+  idProb_id: 1
+
+two:
+  idSubida: 1
+  fechasub: 2013-03-26
+  estatus: MyString
+  tiempo: 1
+  memoria: 1
+  tam: 1
+  leng: MyString
+  idPart_id: MyString
+  idProb_id: 1

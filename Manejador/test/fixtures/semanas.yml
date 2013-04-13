@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  idSemana: 1
+  fecha_ini: 2013-03-26
+  fecha_fin: 2013-03-26
+
+two:
+  idSemana: 1
+  fecha_ini: 2013-03-26
+  fecha_fin: 2013-03-26

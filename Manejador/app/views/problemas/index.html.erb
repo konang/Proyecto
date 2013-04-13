@@ -1,0 +1,56 @@
+<!--
+  #Archivo: index.html.erb
+ #Proyecto: Aplicación Móvil para plataforma Android Training Assistant
+ #Autor(es): Andrés Rocha González
+ # Fecha de creación: 27/Marzo/2013
+ #Fecha de última actualización: 27/Marzo/2013
+ #Descripción general: pantalla incial para una Problema
+ #ITESM de Monterrey. Todos los derechos reservados.
+ #This file is part of Aplicación Móvil para plataforma Android Training Assistant.
+ #Aplicación Móvil para plataforma Android Training Assistant is free software: you can redistribute it and/or modify
+ #it under the terms of the GNU General Public License as published by
+ #the Free Software Foundation, either version 3 of the License, or
+ #(at your option) any later version.
+
+ # Aplicación Móvil para plataforma Android Training Assistant
+ # is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+
+ # You should have received a copy of the GNU General Public License
+ # along with Aplicación Móvil para plataforma Android Training Assistant.
+ # If not, see <http://www.gnu.org/licenses/>.*/
+
+-->
+
+<h1>Lista de Problemas</h1>
+
+<table>
+  <tr>
+    <th>Idprob</th>
+    <th>Desc</th>
+    <th>Tip</th>
+    <th>Nom</th>
+    <th>Valor</th>
+    <th>Idsemana</th>
+  </tr>
+
+<% @problemas.each do |problema| %>
+  <tr>
+    <td><%=h problema.idProb %></td>
+    <td><%=h problema.desc %></td>
+    <td><%=h problema.tip %></td>
+    <td><%=h problema.nom %></td>
+    <td><%=h problema.valor %></td>
+    <td><%=h problema.idSemana_id %></td>
+    <td><%= link_to 'Show', problema %></td>
+    <td><%= link_to 'Edit', edit_problema_path(problema) %></td>
+    <td><%= link_to 'Destroy', problema, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New problema', new_problema_path %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  idPart: MyString
+  mat: 1
+  nom: MyString
+  puntaje: 1
+  pos: 1
+
+two:
+  idPart: MyString
+  mat: 1
+  nom: MyString
+  puntaje: 1
+  pos: 1
