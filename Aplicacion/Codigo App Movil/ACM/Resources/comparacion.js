@@ -1,7 +1,6 @@
 var tiempoMoverComparacionP;
 var tiempoMoverComparacionE;
 
-
 var comparacion = Titanium.UI.createView({
 	backgroundColor : '#fff',
 	height : "90%",
@@ -28,7 +27,7 @@ var pickerComparacion = Ti.UI.createPicker({
 });
 pickerComparacion.addEventListener('change', function(e) {
 	//alert(""+e.rowIndex);
-	if (e.rowIndex == 0 || e.rowIndex == 2) { 
+	if (e.rowIndex == 0 || e.rowIndex == 2) {
 		fieldBuscar1.keyboardType = Titanium.UI.KEYBOARD_NUMBER_PAD;
 	} else {
 		fieldBuscar1.keyboardType = Titanium.UI.KEYBOARD_DEFAULT;
@@ -58,7 +57,7 @@ var pickerComparacion2 = Ti.UI.createPicker({
 });
 pickerComparacion2.addEventListener('change', function(e) {
 	//alert(""+e.rowIndex);
-	if (e.rowIndex == 0 || e.rowIndex == 2) { 
+	if (e.rowIndex == 0 || e.rowIndex == 2) {
 		fieldBuscar2.keyboardType = Titanium.UI.KEYBOARD_NUMBER_PAD;
 	} else {
 		fieldBuscar2.keyboardType = Titanium.UI.KEYBOARD_DEFAULT;
@@ -87,6 +86,7 @@ var fieldBuscar1 = Ti.UI.createTextField({
 	color : '#336699',
 	top : "41%",
 	//left: "10%",
+	softKeyboardOnFocus : Ti.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS,
 	width : "75%",
 	height : "12%"
 });
@@ -110,13 +110,9 @@ var fieldBuscar2 = Ti.UI.createTextField({
 	color : '#336699',
 	top : "73%",
 	//left: "10%",
+	softKeyboardOnFocus : Ti.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS,
 	width : "75%",
 	height : "12%"
-});
-
-var toast = Ti.UI.createNotification({
-	message : "Please Stand By",
-	duration : Ti.UI.NOTIFICATION_DURATION_LONG
 });
 
 // Boton para activar la busqueda de la comparcion de participantes
@@ -132,11 +128,16 @@ var btnBuscarComparacion = Titanium.UI.createButton({
 	height : "15%"
 })
 btnBuscarComparacion.addEventListener('click', function(e) {
-	toast.show();
+
 	if (banP) {
-		banP = false;
-		comparacion.add(fondoComparacion);
-		comparacionParticipante();
+		if (Titanium.Network.networkType != Titanium.Network.NETWORK_NONE) {
+			banP = false;
+			toast.show();
+			comparacion.add(fondoComparacion);
+			comparacionParticipante();
+		} else {
+			alert("No hay conexion a internet");
+		}
 	}
 });
 
@@ -144,19 +145,20 @@ btnBuscarComparacion.addEventListener('click', function(e) {
 function comparacionParticipante() {
 	//tablaRanking.setData([]);
 	//alert(""+pickerBusqueda.getSelectedRow(0).title);
-	comparacionPhp.getComparacionPhp(pickerComparacion.getSelectedRow(0).title, fieldBuscar1.value, 
-	pickerComparacion2.getSelectedRow(0).title, fieldBuscar2.value , function(response) {
+	comparacionPhp.getComparacionPhp(pickerComparacion.getSelectedRow(0).title, fieldBuscar1.value, pickerComparacion2.getSelectedRow(0).title, fieldBuscar2.value, function(response) {
 		//getting an item out of the json response
-			despliegaDetallesComparacion(response);
-			//alert("" + response.participantes[0].nom);
+		despliegaDetallesComparacion(response);
+		//alert("" + response.participantes[0].nom);
 		//}
 
 	}, function(e) {
 		Titanium.UI.createAlertDialog({
-			title : "API call failed",
-			message : e,
+			title : "Error con la conexión a la base de datos",
+			//message : e,
 			buttonNames : ['OK']
 		}).show();
+		banP = true;
+		comparacion.remove(fondoComparacion);
 	});
 }
 
@@ -172,7 +174,7 @@ var fondoComparacion = Titanium.UI.createView({
 var datosComparacion = Titanium.UI.createView({
 	backgroundColor : '#fff',
 	height : "70%",
-	top : "20%",
+	top : "12%",
 	width : "100%",
 	left : "100%"
 })
@@ -211,7 +213,7 @@ function despliegaDetallesComparacion(response) {
 
 	comparacion.add(btnRegresarComparacion);
 	cargarDatosDetalleC(response);
-	comparacion.add(datosComparacion);
+	menu.add(datosComparacion);
 	tiempoMoverComparacionP = setInterval(function() {
 		moverComparacion(datosComparacion);
 	}, 2);
@@ -226,7 +228,7 @@ function moverComparacionFuera(pantalla) {
 		clearInterval(tiempoMoverComparacionP);
 		comparacion.remove(fondoComparacion);
 		comparacion.remove(btnRegresarComparacion);
-		comparacion.remove(datosComparacion);
+		menu.remove(datosComparacion);
 		banP = true;
 	} else {
 		var avance = parseFloat(pantalla.left.substring(0, 4));
@@ -280,5 +282,7 @@ function cargarComparacion() {
 	comparacion.width = "100%";
 }
 
-pickerComparacion2.setSelectedRow(0, 1, false); // select Nombre
-pickerComparacion.setSelectedRow(0, 1, false); // select Nombre
+pickerComparacion2.setSelectedRow(0, 1, false);
+// select Nombre
+pickerComparacion.setSelectedRow(0, 1, false);
+// select Nombre

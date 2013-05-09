@@ -27,6 +27,7 @@ import re
 import MySQLdb
 import time
 import parser
+import numbers
 
 # Abre coneccion con la base de datos
 db = MySQLdb.connect("localhost","root","","prueba" )
@@ -35,10 +36,19 @@ db = MySQLdb.connect("localhost","root","","prueba" )
 cursor = db.cursor()
 cursorinsert = db.cursor()
 
+sigue = True
+while sigue:	#valida que lo que se introdujo solo sea valor numerico
+	var = raw_input("Que semana quieres checar(NUMERICO) ")
+	try:
+		sigue=False
+		val=float(var)
+	except ValueError:
+		sigue=True
+		print "Solo valores numericos"
 
 # Prepara los queries para sacar los datos necesarios para hacer la busqueda
 sql = """SELECT idPart FROM participantes"""
-sql2= """SELECT idProb FROM problemas"""
+sql2= "SELECT idProb FROM problemas, semanas WHERE semanas.idSemana=problemas.idSemana_id and semanas.idSemana="+var
 
 cursor.execute(sql)
 results = cursor.fetchall()
@@ -77,9 +87,13 @@ for row2 in results2:
 			sql9="SELECT fecha_fin FROM semanas WHERE idSemana='"+str(idSemana)+"'"
 			cursorinsert.execute(sql9)
 			fecha_fin = cursorinsert.fetchall()[0][0]
-			fecha_fin = time.strptime(str(fecha_fin), "%Y-%m-%d") 
+			fecha_fin = time.strptime(str(fecha_fin), "%Y-%m-%d")
+			sql9="SELECT fecha_ini FROM semanas WHERE idSemana='"+str(idSemana)+"'"
+			cursorinsert.execute(sql9)
+			fecha_ini = cursorinsert.fetchall()[0][0]
+			fecha_ini = time.strptime(str(fecha_ini), "%Y-%m-%d") 			
 			
-			if fecha2 <= fecha_fin:#checa que el problema resuelto se encuentre dentro de la fecha de aceptacion y de ser lo asi continua
+			if fecha2 <= fecha_fin and fecha2>=fecha_ini:#checa que el problema resuelto se encuentre dentro de la fecha de aceptacion y de ser lo asi continua
 				tiempo = td[5].text.strip().encode("ascii" , "ignore")
 				memoria = td[6].text.strip().encode("ascii" , "ignore")
 				tam = td[7].text.strip().encode("ascii" , "ignore")

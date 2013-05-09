@@ -1,3 +1,11 @@
+var fondoGanador = Titanium.UI.createImageView({
+	backgroundColor : '#313DE8',
+	opacity : 0.5,
+	height : "100%",
+	width : "35%",
+	top : 0
+});
+
 //Etiqueta para el cuadro del ID del participante 1
 var etiquetaPosicionDetalleC1 = Titanium.UI.createLabel({
 	color : '#000',
@@ -7,7 +15,7 @@ var etiquetaPosicionDetalleC1 = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Regular'
 	},
 	top : "5%",
-	left: "38%",
+	left : "38%",
 	//width:'auto'
 });
 
@@ -20,7 +28,7 @@ var etiquetaPosicionDetalleC2 = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Regular'
 	},
 	top : "5%",
-	left: "77%",
+	left : "77%",
 	//width:'auto'
 });
 
@@ -33,7 +41,7 @@ var etiquetaPosicionC = Titanium.UI.createLabel({
 		fontFamily : 'Roboto'
 	},
 	top : "5%",
-	left: "5%",
+	left : "5%",
 	//width:'auto'
 });
 
@@ -46,7 +54,7 @@ var etiquetaIdpartDetalleC1 = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Light'
 	},
 	top : "20%",
-	left: "35%",
+	left : "35%",
 	//width:'auto'
 });
 
@@ -59,7 +67,7 @@ var etiquetaIdpartDetalleC2 = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Light'
 	},
 	top : "20%",
-	left: "70%",
+	left : "70%",
 	//width:'auto'
 });
 
@@ -72,7 +80,7 @@ var etiquetaIdpartC = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Light'
 	},
 	top : "20%",
-	left: "5%",
+	left : "5%",
 	//width:'auto'
 });
 
@@ -85,7 +93,7 @@ var etiquetaMatriculaDetalleC1 = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Light'
 	},
 	top : "30%",
-	left: "35%",
+	left : "35%",
 	//width:'auto'
 });
 
@@ -98,12 +106,11 @@ var etiquetaMatriculaDetalleC2 = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Light'
 	},
 	top : "30%",
-	left: "70%",
+	left : "70%",
 	//width:'auto'
 });
 
-
-//Etiqueta indicar que es para el cuadro del nombre 
+//Etiqueta indicar que es para el cuadro del nombre
 var etiquetaMatriculaC = Titanium.UI.createLabel({
 	color : '#000',
 	text : "Matricula:",
@@ -112,7 +119,7 @@ var etiquetaMatriculaC = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Light'
 	},
 	top : "30%",
-	left: "5%",
+	left : "5%",
 	//width:'auto'
 });
 
@@ -125,11 +132,11 @@ var etiquetaNombreDetalleC1 = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Light'
 	},
 	top : "40%",
-	left: "35%",
+	left : "35%",
 	//width:'auto'
 });
 
-//Etiqueta para el cuadro del nombre del participante 2	
+//Etiqueta para el cuadro del nombre del participante 2
 var etiquetaNombreDetalleC2 = Titanium.UI.createLabel({
 	color : '#000',
 	text : "",
@@ -138,7 +145,7 @@ var etiquetaNombreDetalleC2 = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Light'
 	},
 	top : "40%",
-	left: "70%",
+	left : "70%",
 	//width:'auto'
 });
 
@@ -151,7 +158,7 @@ var etiquetaNombreC = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Light'
 	},
 	top : "40%",
-	left: "5%",
+	left : "5%",
 	//width:'auto'
 });
 
@@ -163,8 +170,8 @@ var etiquetaPuntajeDetalleC1 = Titanium.UI.createLabel({
 		fontSize : "18%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "50%",
-	left: "35%",
+	top : "53%",
+	left : "35%",
 	//width:'auto'
 });
 
@@ -176,8 +183,8 @@ var etiquetaPuntajeDetalleC2 = Titanium.UI.createLabel({
 		fontSize : "18%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "50%",
-	left: "70%",
+	top : "53%",
+	left : "70%",
 	//width:'auto'
 });
 
@@ -189,8 +196,8 @@ var etiquetaPuntajeC = Titanium.UI.createLabel({
 		fontSize : "18%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "50%",
-	left: "5%",
+	top : "53%",
+	left : "5%",
 	//width:'auto'
 });
 
@@ -202,8 +209,8 @@ var etiquetaIdDetalleC1 = Titanium.UI.createLabel({
 		fontSize : "20%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "60%",
-	left: "35%",
+	top : "63%",
+	left : "35%",
 	//width:'auto'
 });
 
@@ -215,8 +222,8 @@ var etiquetaIdDetalleC2 = Titanium.UI.createLabel({
 		fontSize : "20%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "60%",
-	left: "70%",
+	top : "63%",
+	left : "70%",
 	//width:'auto'
 });
 
@@ -228,45 +235,61 @@ var etiquetaIdC = Titanium.UI.createLabel({
 		fontSize : "20%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "60%",
-	left: "5%",
+	top : "63%",
+	left : "5%",
 	//width:'auto'
 });
 
+var imageGanador = Ti.UI.createImageView({
+	image : '/img/first.png',
+	width: '15%',
+	top: '73%'
+});
 
-function cargarDatosDetalleC(response){
+function cargarDatosDetalleC(response) {
 	etiquetaNombreDetalleC1.text = "" + response.participantes[0].nom;
 	etiquetaIdDetalleC1.text = "" + response.participantes[0].id;
 	etiquetaIdpartDetalleC1.text = "" + response.participantes[0].idPart;
 	etiquetaMatriculaDetalleC1.text = "" + response.participantes[0].mat;
 	etiquetaPuntajeDetalleC1.text = "" + response.participantes[0].puntaje;
 	etiquetaPosicionDetalleC1.text = "" + response.participantes[0].pos;
-	
+
 	etiquetaNombreDetalleC2.text = "" + response.participantes[1].nom;
 	etiquetaIdDetalleC2.text = "" + response.participantes[1].id;
 	etiquetaIdpartDetalleC2.text = "" + response.participantes[1].idPart;
 	etiquetaMatriculaDetalleC2.text = "" + response.participantes[1].mat;
 	etiquetaPuntajeDetalleC2.text = "" + response.participantes[1].puntaje;
 	etiquetaPosicionDetalleC2.text = "" + response.participantes[1].pos;
-	
+
+	if (response.participantes[0].pos >= response.participantes[1].pos) {
+		fondoGanador.left = "64%";
+		imageGanador.left = "72%";
+	} else {
+		fondoGanador.left = "30%";
+		imageGanador.left = "36%";
+	}
+
+	datosComparacion.add(fondoGanador);
+
 	datosComparacion.add(etiquetaNombreDetalleC1);
 	datosComparacion.add(etiquetaIdDetalleC1);
 	datosComparacion.add(etiquetaIdpartDetalleC1);
 	datosComparacion.add(etiquetaMatriculaDetalleC1);
 	datosComparacion.add(etiquetaPuntajeDetalleC1);
 	datosComparacion.add(etiquetaPosicionDetalleC1);
-	
+
 	datosComparacion.add(etiquetaNombreDetalleC2);
 	datosComparacion.add(etiquetaIdDetalleC2);
 	datosComparacion.add(etiquetaIdpartDetalleC2);
 	datosComparacion.add(etiquetaMatriculaDetalleC2);
 	datosComparacion.add(etiquetaPuntajeDetalleC2);
 	datosComparacion.add(etiquetaPosicionDetalleC2);
-	
+
 	datosComparacion.add(etiquetaNombreC);
 	datosComparacion.add(etiquetaIdC);
 	datosComparacion.add(etiquetaIdpartC);
 	datosComparacion.add(etiquetaMatriculaC);
 	datosComparacion.add(etiquetaPuntajeC);
+	datosComparacion.add(imageGanador);
 	//datos.add(etiquetaPosicion);
 }

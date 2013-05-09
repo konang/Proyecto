@@ -7,11 +7,10 @@
  }, {
  title : 'Potatoes'
  }];*/
-var tableData = [];
+var tableDataProblemas = [];
 var indice = 0;
 var tiempoMoverP;
 var tiempoMoverE;
-var tabla = new Array();
 
 var rankings = Titanium.UI.createView({
 	backgroundColor : '#fff',
@@ -32,28 +31,6 @@ var tituloRankings = Titanium.UI.createLabel({
 	//width:'auto'
 });
 
-function llenarTabla(tableData) {
-	for ( indice = 1; indice <= tableData.length; indice++) {
-		var posY = (indice * 10) + 7;
-		tabla[indice - 1] = Ti.UI.createButton({
-			title : tableData[indice - 1],
-			top : "" + posY + "%",
-			left : "7.5%",
-			color : "#fff",
-			height : "12%",
-			width : "85%"
-		});
-		if (indice % 2 == 0) {
-			tabla[indice - 1].backgroundImage = 'img/tablaP.png';
-			tabla[indice - 1].backgroundSelectedImage = 'img/tablaPS.png';
-		} else {
-			tabla[indice - 1].backgroundImage = 'img/tablaI.png';
-			tabla[indice - 1].backgroundSelectedImage = 'img/tablaIS.png';
-		}
-		rankings.add(tabla[indice - 1]);
-	}
-}
-
 //Barra de busqueda de competidores
 var buscador = Titanium.UI.createSearchBar({
 	barColor : '#fff',
@@ -72,12 +49,18 @@ var tablaRanking = Titanium.UI.createTableView({
 	top : "15%",
 	left : "7.5%",
 
-	data : tableData
+	//data : tableData
 });
 tablaRanking.addEventListener('click', function(e) {
 	if (banP) {
-		rankings.add(fondo);
-		obtenerDetalles(e.rowData.accessibilityValue);
+		if (Titanium.Network.networkType != Titanium.Network.NETWORK_NONE) {
+			banP = false;
+			toast.show();
+			rankings.add(fondo);
+			obtenerDetalles(e.rowData.accessibilityValue);
+		} else {
+			alert("No hay conexion a internet");
+		}
 	}
 	//alert("" + e.rowData.accessibilityValue);
 });
@@ -92,10 +75,12 @@ function obtenerDetalles(dato) {
 
 	}, function(e) {
 		Titanium.UI.createAlertDialog({
-			title : "API call failed",
-			message : e,
+			title : "Error con la conexión a la base de datos",
+			//message : e,
 			buttonNames : ['OK']
 		}).show();
+		banP = true;
+		rankings.remove(fondo);
 	});
 }
 
@@ -109,7 +94,7 @@ var fondo = Titanium.UI.createView({
 var datos = Titanium.UI.createView({
 	backgroundColor : '#fff',
 	height : "70%",
-	top : "20%",
+	top : "10%",
 	left : "100%"
 })
 datos.addEventListener('swipe', function(e) {
@@ -145,11 +130,9 @@ btnRegresarDetalles.addEventListener('click', function(e) {
 
 function despliegaDetalles(response) {
 
-	
 	rankings.add(btnRegresarDetalles);
 	cargarDatosDetalle(response);
-	rankings.add(datos);
-	banP = false;
+	menu.add(datos);
 	tiempoMoverP = setInterval(function() {
 		moverDetalles(datos);
 	}, 2);
@@ -160,11 +143,11 @@ function despliegaDetalles(response) {
 
 function moverDetallesFuera(pantalla) {
 	//alert (""+left+" "+a);
-	if (pantalla.left == "100%") {
+	if (pantalla.left == '100%') {
 		clearInterval(tiempoMoverP);
 		rankings.remove(fondo);
 		rankings.remove(btnRegresarDetalles);
-		rankings.remove(datos);
+		menu.remove(datos);
 		banP = true;
 	} else {
 		var avance = parseFloat(pantalla.left.substring(0, 4));
@@ -216,33 +199,82 @@ function obtenerRanking() {
 		//alert(""+response.participantes.length);
 		for ( pos = 0; pos < response.participantes.length; pos++) {
 			var row = Ti.UI.createTableViewRow({
-				title : '' + response.participantes[pos].nom,
+				accessibilityValue : "" + (pos + 1),
 				font : {
-					fontSize : "25%",
-					color: "#000",
-					fontFamily : 'Roboto-Thin'
+					fontSize : '25%',
+					color : "#000000",
+					fontFamily : 'Roboto-Condensed'
 				},
-				accessibilityValue : "" + (pos + 1)
+				title : response.participantes[pos].pos + '  ' + response.participantes[pos].nom
 			});
+			var columnR1 = Ti.UI.createView({
+
+				left : '25%',
+				//accessibilityValue : "" + (pos + 1)
+			});
+			var label = Ti.UI.createLabel({
+				text : '' + response.participantes[pos].nom,
+				font : {
+					fontSize : '25%',
+					color : "#000",
+					fontFamily : 'Roboto-Condensed'
+				},
+				left : 0,
+				//width : 0
+			});
+			var columnR2 = Ti.UI.createView({
+				//height : '25%',
+				left : 0,
+				width : '25%'
+			});
+			var imgPos = Ti.UI.createLabel({
+				text : '' + response.participantes[pos].pos,
+				font : {
+					fontSize : '25%',
+					color : "#000",
+					fontFamily : 'Roboto-Condensed'
+				},
+				left : 0,
+			});
+			//var row1 = Ti.UI.createTableViewRow({accessibilityValue : "" + (pos + 1)});;
+			/*if (response.participantes[pos].pos == 1) {
+			 imgPos.image = 'img/1st_place.png';
+			 }
+			 if (response.participantes[pos].pos == 2) {
+			 imgPos.image = 'img/2nd_place.png';
+			 }
+			 if (response.participantes[pos].pos == 3) {
+			 imgPos.image = 'img/3rd_place.png';
+			 }*/
+			columnR1.add(label);
+			columnR2.add(imgPos);
+			//row.add(columnR2);
+			//row.add(columnR1);
+			//row.height = '25%';
 			//alert("" + response.participantes[pos].nom);
+			//seccionNombres.add(row);
+			//seccionPosiciones.add(row1);
+			//tableDataProblemas.push(row);
 			tablaRanking.appendRow(row);
 			//tableData.push(row);
 		}
+		//tablaRanking.data = [seccionPosiciones, seccionNombres];
 
 	}, function(e) {
 		Titanium.UI.createAlertDialog({
-			title : "API call failed",
-			message : e,
+			title : "Error con la conexión a la base de datos",
+			//message : e,
 			buttonNames : ['OK']
 		}).show();
 	});
+	//tablaRanking.setData(tableDataProblemas);
 }
 
 function cargarRankings() {
-	rankings.add(tituloRankings);
 	rankings.left = "100%";
 	rankings.width = "100%";
 	//obtenerRanking();
 	rankings.add(tablaRanking);
+	rankings.add(tituloRankings);
 	//llenarTabla(tableData);
 }

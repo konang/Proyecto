@@ -9,10 +9,22 @@ Ti.include("basedatos.js");
 Ti.include("busquedaPhp.js");
 Ti.include("comparacionPhp.js");
 Ti.include("rankingDetallePhp.js");
+Ti.include("estadisticasDetallePhp.js");
 Ti.include("rankingDetalle.js");
 Ti.include("comparacionDetalle.js");
 Ti.include("busquedaDetalle.js");
-obtenerRanking();
+Ti.include("estadisticasDetalle.js");
+if (Titanium.Network.networkType != Titanium.Network.NETWORK_NONE) {
+	estadisticasProblemas();
+	obtenerRanking();
+}else{
+	alert("No hay conexion a internet");
+}
+
+var toast = Ti.UI.createNotification({
+	message : "Cargando ...",
+	duration : Ti.UI.NOTIFICATION_DURATION_LONG
+});
 
 var tiempoMover;
 var a = 0;
@@ -92,7 +104,7 @@ var btnBusqueda = Ti.UI.createButton({
 	backgroundImage : 'img/busqueda.png',
 	backgroundSelectedImage : 'img/busqueda1.png',
 	top : "91%",
-	left : "25%",
+	left : "30%",
 	height : "9%",
 	width : "15%"
 });
@@ -140,7 +152,7 @@ var btnEstadisticas = Ti.UI.createButton({
 	backgroundImage : 'img/estadisticas.png',
 	backgroundSelectedImage : 'img/estadisticas1.png',
 	top : "91%",
-	left : "50%",
+	left : "57%",
 	height : "9%",
 	width : "15%"
 });
@@ -188,7 +200,7 @@ var btnComparacion = Ti.UI.createButton({
 	backgroundImage : 'img/comparacion.png',
 	backgroundSelectedImage : 'img/comparacion1.png',
 	top : "91%",
-	left : "75%",
+	left : "85%",
 	height : "9%",
 	width : "15%"
 });

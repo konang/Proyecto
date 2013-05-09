@@ -22,12 +22,12 @@ var tituloBusqueda = Titanium.UI.createLabel({
 
 //Elemento donde se seleeciona el criterio de busqueda de un participante
 var pickerBusqueda = Ti.UI.createPicker({
-  top:"30%",
-  width: "75%"
+	top : "30%",
+	width : "75%"
 });
 pickerBusqueda.addEventListener('change', function(e) {
 	//alert(""+e.rowIndex);
-	if (e.rowIndex == 0 || e.rowIndex == 2) { 
+	if (e.rowIndex == 0 || e.rowIndex == 2) {
 		fieldBuscar.keyboardType = Titanium.UI.KEYBOARD_NUMBER_PAD;
 	} else {
 		fieldBuscar.keyboardType = Titanium.UI.KEYBOARD_DEFAULT;
@@ -35,10 +35,18 @@ pickerBusqueda.addEventListener('change', function(e) {
 });
 
 var data = [];
-data[0]=Ti.UI.createPickerRow({title:'Matricula'});
-data[1]=Ti.UI.createPickerRow({title:'Nombre'});
-data[2]=Ti.UI.createPickerRow({title:'Posicion'});
-data[3]=Ti.UI.createPickerRow({title:'ID'});
+data[0] = Ti.UI.createPickerRow({
+	title : 'Matricula'
+});
+data[1] = Ti.UI.createPickerRow({
+	title : 'Nombre'
+});
+data[2] = Ti.UI.createPickerRow({
+	title : 'Posicion'
+});
+data[3] = Ti.UI.createPickerRow({
+	title : 'ID'
+});
 
 pickerBusqueda.add(data);
 pickerBusqueda.selectionIndicator = true;
@@ -49,9 +57,17 @@ var fieldBuscar = Ti.UI.createTextField({
 	color : '#336699',
 	top : "45%",
 	//left: "10%",
+	softKeyboardOnFocus : Ti.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS,
 	width : "75%",
 	height : "12%"
 });
+/*fieldBuscar.addEventListener('focus', function() {
+busqueda.animate({bottom: 166, duration:500});
+});
+
+fieldBuscar.addEventListener('blur', function() {
+busqueda.animate({bottom: 0, duration:500});
+});*/
 
 // Boton para activar la busqueda del participante
 var btnBuscar = Titanium.UI.createButton({
@@ -68,28 +84,34 @@ var btnBuscar = Titanium.UI.createButton({
 btnBuscar.addEventListener('click', function(e) {
 	//toast.show();
 	if (banP) {
-		banP = false;
-		busqueda.add(fondoBusqueda);
-		busquedaParticipante();
+		if (Titanium.Network.networkType != Titanium.Network.NETWORK_NONE) {
+			toast.show();
+			banP = false;
+			busqueda.add(fondoBusqueda);
+			busquedaParticipante();
+		} else {
+			alert("No hay conexion a internet");
+		}
 	}
 });
-
 
 //funcion para buscar un participante
 function busquedaParticipante() {
 	//tablaRanking.setData([]);
 	//alert(""+pickerBusqueda.getSelectedRow(0).title);
-	busquedaPhp.getBusquedaPhp(pickerBusqueda.getSelectedRow(0).title, fieldBuscar.value , function(response) {
+	busquedaPhp.getBusquedaPhp(pickerBusqueda.getSelectedRow(0).title, fieldBuscar.value, function(response) {
 		//getting an item out of the json response
-			despliegaDetallesParticipante(response);
-			//alert("" + response.participantes[0].nom);
+		despliegaDetallesParticipante(response);
+		//alert("" + response.participantes[0].nom);
 
 	}, function(e) {
 		Titanium.UI.createAlertDialog({
-			title : "API call failed",
-			message : e,
+			title : "Error con la conexión a la base de datos",
+			//message : e,
 			buttonNames : ['OK']
 		}).show();
+		banP = true;
+		busqueda.remove(fondoBusqueda);
 	});
 }
 
@@ -105,7 +127,7 @@ var fondoBusqueda = Titanium.UI.createView({
 var datosBusqueda = Titanium.UI.createView({
 	backgroundColor : '#fff',
 	height : "70%",
-	top : "20%",
+	top : "15%",
 	width : "100%",
 	left : "100%"
 })
@@ -144,7 +166,7 @@ function despliegaDetallesParticipante(response) {
 
 	busqueda.add(btnRegresarBusqueda);
 	cargarDatosDetalleB(response);
-	busqueda.add(datosBusqueda);
+	menu.add(datosBusqueda);
 	tiempoMoverBusquedaP = setInterval(function() {
 		moverBusqueda(datosBusqueda);
 	}, 2);
@@ -159,7 +181,7 @@ function moverBusquedaFuera(pantalla) {
 		clearInterval(tiempoMoverBusquedaP);
 		busqueda.remove(fondoBusqueda);
 		busqueda.remove(btnRegresarBusqueda);
-		busqueda.remove(datosBusqueda);
+		menu.remove(datosBusqueda);
 		banP = true;
 	} else {
 		var avance = parseFloat(pantalla.left.substring(0, 4));
@@ -209,4 +231,5 @@ function cargarBusqueda() {
 	busqueda.width = "100%";
 }
 
-pickerBusqueda.setSelectedRow(0, 1, false); // select Nombre
+pickerBusqueda.setSelectedRow(0, 1, false);
+// select Nombre
