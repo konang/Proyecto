@@ -17,7 +17,6 @@ var busquedaPhp = (function() {
 	api.xhr.open('GET', url);
     api.xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-   	//Ti.API.info(hola);
     api.xhr.onerror = function(e){
         Ti.API.error("API ERROR " + e.error);
         if (error) {
@@ -29,7 +28,6 @@ var busquedaPhp = (function() {
         Ti.API.debug("API response: " + this.responseText);
         if (success) {
             var jsonResponse = JSON.parse(this.responseText);
-            //alert(""+jsonResponse);
             success(jsonResponse);
         }
     };

@@ -6,9 +6,7 @@ var etiquetaPosicionDetalleB = Titanium.UI.createLabel({
 		fontSize : "40%",
 		fontFamily : 'Roboto-Regular'
 	},
-	top : "5%",
-	//left: "45%",
-	//width:'auto'
+	top : "5%"
 });
 
 //Etiqueta indicar que es para el cuadro del ID
@@ -20,8 +18,7 @@ var etiquetaPosicionB = Titanium.UI.createLabel({
 		fontFamily : 'Roboto'
 	},
 	top : "5%",
-	left: "5%",
-	//width:'auto'
+	left: "5%"
 });
 
 //Etiqueta para el cuadro del Id del participante con el sistema
@@ -32,9 +29,8 @@ var etiquetaIdpartDetalleB = Titanium.UI.createLabel({
 		fontSize : "25%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "20%",
-	left: "50%",
-	//width:'auto'
+	top : "25%",
+	left: "50%"
 });
 
 //Etiqueta indicar que es para el cuadro del Id del participante con el sistema
@@ -45,12 +41,11 @@ var etiquetaIdpartB = Titanium.UI.createLabel({
 		fontSize : "25%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "20%",
-	left: "5%",
-	//width:'auto'
+	top : "25%",
+	left: "5%"
 });
 
-//Etiqueta para el cuadro del nombre
+//Etiqueta para el cuadro de la matricula
 var etiquetaMatriculaDetalleB = Titanium.UI.createLabel({
 	color : '#000',
 	text : "",
@@ -58,12 +53,11 @@ var etiquetaMatriculaDetalleB = Titanium.UI.createLabel({
 		fontSize : "25%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "30%",
-	left: "50%",
-	//width:'auto'
+	top : "40%",
+	left: "50%"
 });
 
-//Etiqueta indicar que es para el cuadro del nombre
+//Etiqueta indicar que es para el cuadro de la matricula
 var etiquetaMatriculaB = Titanium.UI.createLabel({
 	color : '#000',
 	text : "Matricula:",
@@ -71,9 +65,8 @@ var etiquetaMatriculaB = Titanium.UI.createLabel({
 		fontSize : "25%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "30%",
-	left: "5%",
-	//width:'auto'
+	top : "40%",
+	left: "5%"
 });
 
 //Etiqueta para el cuadro del nombre
@@ -84,9 +77,8 @@ var etiquetaNombreDetalleB = Titanium.UI.createLabel({
 		fontSize : "25%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "40%",
-	left: "50%",
-	//width:'auto'
+	top : "55%",
+	left: "50%"
 });
 
 //Etiqueta indicar que es para el cuadro del nombre
@@ -97,12 +89,11 @@ var etiquetaNombreB = Titanium.UI.createLabel({
 		fontSize : "25%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "40%",
-	left: "5%",
-	//width:'auto'
+	top : "55%",
+	left: "5%"
 });
 
-//Etiqueta para el cuadro del nombre
+//Etiqueta para el cuadro del puntaje
 var etiquetaPuntajeDetalleB = Titanium.UI.createLabel({
 	color : '#000',
 	text : "",
@@ -110,12 +101,11 @@ var etiquetaPuntajeDetalleB = Titanium.UI.createLabel({
 		fontSize : "25%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "50%",
-	left: "50%",
-	//width:'auto'
+	top : "70%",
+	left: "50%"
 });
 
-//Etiqueta indicar que es para el cuadro del nombre
+//Etiqueta indicar que es para el cuadro del puntaje
 var etiquetaPuntajeB = Titanium.UI.createLabel({
 	color : '#000',
 	text : "Puntaje:",
@@ -123,55 +113,24 @@ var etiquetaPuntajeB = Titanium.UI.createLabel({
 		fontSize : "25%",
 		fontFamily : 'Roboto-Light'
 	},
-	top : "50%",
-	left: "5%",
-	//width:'auto'
-});
-
-//Etiqueta para el cuadro del nombre
-var etiquetaIdDetalleB = Titanium.UI.createLabel({
-	color : '#000',
-	text : "",
-	font : {
-		fontSize : "25%",
-		fontFamily : 'Roboto-Light'
-	},
-	top : "60%",
-	left: "50%",
-	//width:'auto'
-});
-
-//Etiqueta indicar que es para el cuadro del nombre
-var etiquetaIdB = Titanium.UI.createLabel({
-	color : '#000',
-	text : "ID:",
-	font : {
-		fontSize : "25%",
-		fontFamily : 'Roboto-Light'
-	},
-	top : "60%",
-	left: "5%",
-	//width:'auto'
+	top : "70%",
+	left: "5%"
 });
 
 
 function cargarDatosDetalleB(response){
 	etiquetaNombreDetalleB.text = "" + response.participantes[0].nom;
-	etiquetaIdDetalleB.text = "" + response.participantes[0].id;
 	etiquetaIdpartDetalleB.text = "" + response.participantes[0].idPart;
 	etiquetaMatriculaDetalleB.text = "" + response.participantes[0].mat;
 	etiquetaPuntajeDetalleB.text = "" + response.participantes[0].puntaje;
 	etiquetaPosicionDetalleB.text = "" + response.participantes[0].pos;
 	datosBusqueda.add(etiquetaNombreDetalleB);
-	datosBusqueda.add(etiquetaIdDetalleB);
 	datosBusqueda.add(etiquetaIdpartDetalleB);
 	datosBusqueda.add(etiquetaMatriculaDetalleB);
 	datosBusqueda.add(etiquetaPuntajeDetalleB);
 	datosBusqueda.add(etiquetaPosicionDetalleB);
 	datosBusqueda.add(etiquetaNombreB);
-	datosBusqueda.add(etiquetaIdB);
 	datosBusqueda.add(etiquetaIdpartB);
 	datosBusqueda.add(etiquetaMatriculaB);
 	datosBusqueda.add(etiquetaPuntajeB);
-	//datos.add(etiquetaPosicion);
 }

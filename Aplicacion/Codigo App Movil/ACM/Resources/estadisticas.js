@@ -1,18 +1,16 @@
 var tiempoMoverEstadisticasP;
 var tiempoMoverEstadisticasE;
 
-var estadisticas = Ti.UI.createScrollView({
+var estadisticas = Titanium.UI.createView({
 	backgroundColor : '#fff',
-	height : "87%",
-	//contentWidth: 'auto',
-	contentHeight : 'auto',
+	height:'90%',
 	top : 0
 });
 
 var estadisticas2 = Titanium.UI.createView({
 	backgroundColor : '#fff',
-	height : "90%",
-	top : '90%'
+	height : "70%",
+	top : '0%'
 });
 
 //Etiqueta que contiene el texto del titulo de la pantalla
@@ -23,9 +21,8 @@ var tituloEstadisticas = Titanium.UI.createLabel({
 		fontSize : "25%",
 		fontFamily : 'Roboto-Medium'
 	},
-	top : "10%",
+	top : "5%",
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
-	//width:'auto'
 });
 
 //Vista que ocurece el fondo mientras se despliegan los datos de las estadisticas
@@ -44,29 +41,18 @@ var datosEstadisticas = Titanium.UI.createView({
 	width : "100%",
 	left : "100%"
 })
-datosEstadisticas.addEventListener('swipe', function(e) {
-	//Titanium.API.info("You clicked the button Regresar");
-	/*tiempoMoverEstadisticasP = setInterval(function() {
-	 moverEstadisticasFuera(datosEstadisticas);
-	 }, 2);
-	 tiempoMoverEstadisticasE = setInterval(function() {
-	 moverBackEstadisticasFuera(btnRegresarEstadisticas);
-	 }, 5);*/
-});
 
 // Boton para regresar a la pantalla anterior
 var btnRegresarEstadisticas = Titanium.UI.createButton({
-	//title: 'Regresar',
 	top : 0,
 	left : "-15%",
 	width : "15%",
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
 	height : "10%",
-	backgroundSelectedImage : "images/back.png",
-	backgroundImage : "images/back1.png"
+	backgroundSelectedImage : "img/back.png",
+	backgroundImage : "img/back1.png"
 })
 btnRegresarEstadisticas.addEventListener('click', function(e) {
-	//Titanium.API.info("You clicked the button Regresar");
 	tiempoMoverEstadisticasP = setInterval(function() {
 		moverEstadisticasFuera(datosEstadisticas);
 	}, 2);
@@ -128,7 +114,6 @@ function moverBackEstadisticas(elemento) {
 		clearInterval(tiempoMoverEstadisticasE);
 	} else {
 		var avance = parseFloat(elemento.left.substring(0, 4));
-		//alert("" + avance);
 		avance = avance + 1;
 		elemento.left = "" + avance + "%";
 	}
@@ -137,24 +122,16 @@ function moverBackEstadisticas(elemento) {
 //funcion para obtener la estadisitca de los lenguajes mas utilizados
 function busquedaLenguajes() {
 	estadisticasDetallePhp.getEstadisticasPhp(1, "utilizado", function(response) {
-
-		//cargarDatosEstadisticas(response, 1);
 		crearGrafica(response);
-		estadisticas.add(finEstadisticas);
 		for ( e = 0; e < response.lenguajes.length; e++) {
 			estadisticas.add(tamLenguajes[e]);
 			estadisticas.add(etiquetasLenguajes[e]);
 			estadisticas.add(etiquetasColores[e]);
 		}
-		finEstadisticas.top = altura + 35 + "%";
 		estadisticas.add(etiquetaTituloEstadisticas);
-
-		//alert("" + response.lenguajes[0].lenguaje);
-
 	}, function(e) {
 		Titanium.UI.createAlertDialog({
 			title : "Error con la conexión a la base de datos",
-			//message : e,
 			buttonNames : ['OK']
 		}).show();
 	});
@@ -162,13 +139,9 @@ function busquedaLenguajes() {
 
 //se crea la tabla donde se mostrara la lista de los problemas actuales
 var tablaProblemas = Titanium.UI.createTableView({
-	//search : buscador,
 	width : '85%',
 	height : '60%',
-	top : '15%',
 	left : '7.5%',
-
-	//data : tableData
 });
 tablaProblemas.addEventListener('click', function(e) {
 	if (banP) {
@@ -181,16 +154,12 @@ tablaProblemas.addEventListener('click', function(e) {
 			alert("No hay conexion a internet");
 		}
 	}
-	//alert("" + e.rowData.accessibilityValue);
 });
 
+//funcion que hace la llamada a la base de datos para obtener las personas que ha resuelto un problema especifico
 function obtenerDetallesProblemas(dato) {
-	//tablaRanking.setData([]);
-	//alert(dato);
 	estadisticasDetallePhp.getEstadisticasPhp(dato, "un_problema", function(response) {
-		//getting an item out of the json response
 		var pos = 0;
-		//alert("" + response.participantes[0].nom);
 		despliegaDetallesEstadisticas(response, 3);
 
 	}, function(e) {
@@ -204,15 +173,11 @@ function obtenerDetallesProblemas(dato) {
 	});
 }
 
-//var seccionNombres = Ti.UI.createTableViewSection({ headerTitle: 'Nombres' });
-//var seccionNumeros = Ti.UI.createTableViewSection({ headerTitle: 'Numeros' });
 //funcion para obtener la estadisitca de los problemas que hay en el concurso
 function estadisticasProblemas() {
 	estadisticasDetallePhp.getEstadisticasPhp(1, "problemas", function(response) {
 		var pos = 0;
-
 		for ( pos = 0; pos < response.datos.length; pos++) {
-			//alert(""+response.datos[pos].idProb);
 			var row1 = Ti.UI.createTableViewRow({
 				accessibilityValue : "" + response.datos[pos].idProb
 			});
@@ -223,7 +188,7 @@ function estadisticasProblemas() {
 					color : "#000",
 					fontFamily : 'Roboto-Condensed'
 				},
-				//height: "20%",
+				width : '85%'
 			});
 			var label1 = Ti.UI.createLabel({
 				text : '' + response.datos[pos].nom_prob,
@@ -232,8 +197,7 @@ function estadisticasProblemas() {
 					color : "#000",
 					fontFamily : 'Roboto-Condensed'
 				},
-				left : 0,
-				//width : 0
+				left : 0
 			});
 			var columnE2 = Ti.UI.createView({
 				title : '' + response.datos[pos].Numero_resueltos,
@@ -242,7 +206,7 @@ function estadisticasProblemas() {
 					color : "#000",
 					fontFamily : 'Roboto-Condensed'
 				},
-				left : "80%",
+				left : "85%"
 			});
 			var label2 = Ti.UI.createLabel({
 				text : '' + response.datos[pos].Numero_Resueltos,
@@ -251,51 +215,31 @@ function estadisticasProblemas() {
 					color : "#000",
 					fontFamily : 'Roboto-Condensed'
 				},
-				left : 0,
-				//width : 0
+				left : 0
 			});
 			columnE1.add(label1);
 			columnE2.add(label2);
 			row1.add(columnE1);
 			row1.add(columnE2);
-			//row1.add(columnE2);
-			//seccionNombres.add(row1);
-			//seccionNumeros.add(row2);
 			tablaProblemas.appendRow(row1);
 		}
-		altura = parseFloat(tablaProblemas.height.substring(0, 3)) - 10;
-		//alert(tablaProblemas.height.substring(0, 3));
-		//alert(altura);
 		busquedaLenguajes();
-		//tablaProblemas.setData(seccionNombres, seccionNumeros);
-		//alert("" + response.lenguajes[0].lenguaje);
 	}, function(e) {
 		Titanium.UI.createAlertDialog({
 			title : "Error con la conexión a la base de datos",
-			//message : e,
 			buttonNames : ['OK']
 		}).show();
 	});
 }
 
-var scrollableEstadisticas = Ti.UI.createScrollView({
-	showVerticalScrollIndicator : true,
-	showHorizontalScrollIndicator : true,
-	contentWidth : 'auto',
-	contentHeight : 'auto',
-	height : "90%",
-	top : 0
-});
-
 function cargarEstadisticas() {
+	problemasConcurso.top = (altura - 2) + "%";
+	tablaProblemas.top = (altura + 7.5)+"%";
+	estadisticas.add(problemasConcurso);
 	estadisticas.add(tituloEstadisticas);
 	estadisticas.add(tablaProblemas);
-
-	tablaProblemas.top = "17%";
-	scrollableEstadisticas.left = "100%";
+	tablaProblemas.height = "37%";
 	estadisticas.left = "100%";
-	scrollableEstadisticas.width = "100%";
 	estadisticas.width = "100%";
-	scrollableEstadisticas.add(estadisticas);
 }
 

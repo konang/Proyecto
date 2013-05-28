@@ -7,6 +7,16 @@ var comparacion = Titanium.UI.createView({
 	top : 0
 });
 
+//Imagen de la pantalla Comparacion que se despliega en la esquina derecha inferior
+var imgComparacion = Ti.UI.createImageView({
+	left : "74%",
+	top : "79%",
+	opacity: 0.5,
+	width : "30%",
+	image : 'img/imgComparacion.png'
+});
+
+
 //Etiqueta que contiene el texto del titulo de la pantalla
 var tituloComparacion = Titanium.UI.createLabel({
 	color : '#000',
@@ -16,8 +26,7 @@ var tituloComparacion = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Medium'
 	},
 	top : "5%",
-	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
-	//width:'auto'
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER
 });
 
 //Elemento donde se seleeciona el criterio de busqueda de un participante
@@ -26,7 +35,6 @@ var pickerComparacion = Ti.UI.createPicker({
 	width : "75%"
 });
 pickerComparacion.addEventListener('change', function(e) {
-	//alert(""+e.rowIndex);
 	if (e.rowIndex == 0 || e.rowIndex == 2) {
 		fieldBuscar1.keyboardType = Titanium.UI.KEYBOARD_NUMBER_PAD;
 	} else {
@@ -56,7 +64,6 @@ var pickerComparacion2 = Ti.UI.createPicker({
 	width : "75%"
 });
 pickerComparacion2.addEventListener('change', function(e) {
-	//alert(""+e.rowIndex);
 	if (e.rowIndex == 0 || e.rowIndex == 2) {
 		fieldBuscar2.keyboardType = Titanium.UI.KEYBOARD_NUMBER_PAD;
 	} else {
@@ -75,9 +82,7 @@ var etiquetaBuscar1 = Titanium.UI.createLabel({
 		fontSize : "20%",
 		fontFamily : 'Helvetica Neue'
 	},
-	top : "35%",
-	//left: "10%",
-	//width:'auto'
+	top : "35%"
 });
 
 //Recuadro donde el usuario ingresara la matricula numero 1 a buscar para la comparacion
@@ -85,7 +90,6 @@ var fieldBuscar1 = Ti.UI.createTextField({
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
 	color : '#336699',
 	top : "41%",
-	//left: "10%",
 	softKeyboardOnFocus : Ti.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS,
 	width : "75%",
 	height : "12%"
@@ -99,9 +103,7 @@ var etiquetaBuscar2 = Titanium.UI.createLabel({
 		fontSize : 20,
 		fontFamily : 'Roboto'
 	},
-	top : "67%",
-	//left: "10%",
-	//width:'auto'
+	top : "67%"
 });
 
 //Recuadro donde el usuario ingresara la matricula numero 2 a buscar para la comparacion
@@ -109,7 +111,6 @@ var fieldBuscar2 = Ti.UI.createTextField({
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
 	color : '#336699',
 	top : "73%",
-	//left: "10%",
 	softKeyboardOnFocus : Ti.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS,
 	width : "75%",
 	height : "12%"
@@ -117,14 +118,12 @@ var fieldBuscar2 = Ti.UI.createTextField({
 
 // Boton para activar la busqueda de la comparcion de participantes
 var btnBuscarComparacion = Titanium.UI.createButton({
-	//title: 'Buscar',
 	top : "85%",
-	//left: "10%",
 	width : "20%",
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
-	backgroundImage : "images/action_search.png",
+	backgroundImage : "img/action_search.png",
 	borderColor : '#fff',
-	backgroundSelectedImage : "images/action_search_dis.png",
+	backgroundSelectedImage : "img/action_search_dis.png",
 	height : "15%"
 })
 btnBuscarComparacion.addEventListener('click', function(e) {
@@ -143,18 +142,12 @@ btnBuscarComparacion.addEventListener('click', function(e) {
 
 //funcion para buscar los 2 participantes a comparar
 function comparacionParticipante() {
-	//tablaRanking.setData([]);
-	//alert(""+pickerBusqueda.getSelectedRow(0).title);
 	comparacionPhp.getComparacionPhp(pickerComparacion.getSelectedRow(0).title, fieldBuscar1.value, pickerComparacion2.getSelectedRow(0).title, fieldBuscar2.value, function(response) {
-		//getting an item out of the json response
 		despliegaDetallesComparacion(response);
-		//alert("" + response.participantes[0].nom);
-		//}
 
 	}, function(e) {
 		Titanium.UI.createAlertDialog({
 			title : "Error con la conexión a la base de datos",
-			//message : e,
 			buttonNames : ['OK']
 		}).show();
 		banP = true;
@@ -179,7 +172,6 @@ var datosComparacion = Titanium.UI.createView({
 	left : "100%"
 })
 datosComparacion.addEventListener('swipe', function(e) {
-	//Titanium.API.info("You clicked the button Regresar");
 	tiempoMoverComparacionP = setInterval(function() {
 		moverComparacionFuera(datosComparacion);
 	}, 2);
@@ -190,17 +182,15 @@ datosComparacion.addEventListener('swipe', function(e) {
 
 // Boton para regresar a la pantalla anterior
 var btnRegresarComparacion = Titanium.UI.createButton({
-	//title: 'Regresar',
 	top : 0,
 	left : "-15%",
 	width : "15%",
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
 	height : "10%",
-	backgroundSelectedImage : "images/back.png",
-	backgroundImage : "images/back1.png"
+	backgroundSelectedImage : "img/back.png",
+	backgroundImage : "img/back1.png"
 })
 btnRegresarComparacion.addEventListener('click', function(e) {
-	//Titanium.API.info("You clicked the button Regresar");
 	tiempoMoverComparacionP = setInterval(function() {
 		moverComparacionFuera(datosComparacion);
 	}, 2);
@@ -263,7 +253,6 @@ function moverBackComparacion(elemento) {
 		clearInterval(tiempoMoverComparacionE);
 	} else {
 		var avance = parseFloat(elemento.left.substring(0, 4));
-		//alert("" + avance);
 		avance = avance + 1;
 		elemento.left = "" + avance + "%";
 	}
@@ -271,6 +260,7 @@ function moverBackComparacion(elemento) {
 
 function cargarComparacion() {
 	comparacion.add(tituloComparacion);
+	comparacion.add(imgComparacion);
 	comparacion.add(fieldBuscar1);
 	comparacion.add(fieldBuscar2);
 	comparacion.add(btnBuscarComparacion);

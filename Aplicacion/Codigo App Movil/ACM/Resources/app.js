@@ -1,6 +1,8 @@
 // this sets the background color of the master UIView (when there are no windows/tab groups on it)
 Titanium.UI.setBackgroundColor('#000');
 
+
+//seccion donde se cargan todos los archivos de codigo a utilizar por la aplicaciones
 Ti.include("busqueda.js");
 Ti.include("estadisticas.js");
 Ti.include("comparacion.js");
@@ -17,7 +19,7 @@ Ti.include("estadisticasDetalle.js");
 if (Titanium.Network.networkType != Titanium.Network.NETWORK_NONE) {
 	estadisticasProblemas();
 	obtenerRanking();
-}else{
+} else {
 	alert("No hay conexion a internet");
 }
 
@@ -33,6 +35,22 @@ var tiempoPantallaS;
 var activa = 0;
 var banP = true;
 var banS = true;
+var tiempoMoverAboutP;
+var tiempoMoverAboutE;
+var inicio = true;
+
+var mensajeBack = Ti.UI.createAlertDialog();
+
+mensajeBack.message = 'Salir de la aplicación?';
+mensajeBack.buttonNames = ['Si', 'No'];
+mensajeBack.cancel = 1;
+
+mensajeBack.addEventListener('click', function(e) {
+	if (e.index == 0) {
+		menu.close();
+	}
+});
+
 //
 // create base UI tab and root window
 //
@@ -42,18 +60,168 @@ var menu = Titanium.UI.createWindow({
 	backgroundColor : '#fff',
 	exitOnClose : true
 });
+menu.addEventListener('android:back', function(e) {
+	mensajeBack.show();
+	return false;
+});
+var activity = menu.activity;
+activity.onCreateOptionsMenu = function(e) {
+	var menuOpciones = e.menu;
+	var menuItem = menuOpciones.add({
+		title : "Acerca de..",
+		icon : "img/about.png",
+		showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM
+	});
+	menuItem.addEventListener("click", function(e) {
+		if (banP) {
+			banP = false;
+			menu.add(fondoAbout);
+			despliegaDetallesAbout();
+		}
+	});
+};
 
-var itesmAcm = Ti.UI.createImageView({
-	top : "0%",
-	left : "65%",
-	//height: "20%",
+//Vista que ocurece el fondo mientras se despliegan el about
+var fondoAbout = Titanium.UI.createView({
+	backgroundColor : '#000',
+	opacity : 0.5,
+	height : "100%",
+	top : 0
+});
+
+//Vista donde se despliegan los datos del About
+var datosAbout = Titanium.UI.createView({
+	backgroundColor : '#fff',
+	height : "70%",
+	top : "15%",
+	width : "100%",
+	left : "100%"
+})
+datosAbout.addEventListener('swipe', function(e) {
+	tiempoMoverAboutP = setInterval(function() {
+		moverAboutFuera(datosAbout);
+	}, 2);
+	tiempoMoverAboutE = setInterval(function() {
+		moverBackAboutFuera(btnRegresarAbout);
+	}, 5);
+});
+
+// Boton para regresar a la pantalla anterior
+var btnRegresarAbout = Titanium.UI.createButton({
+	top : 0,
+	left : "-15%",
+	width : "15%",
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+	height : "10%",
+	backgroundSelectedImage : "img/back.png",
+	backgroundImage : "img/back1.png"
+})
+btnRegresarAbout.addEventListener('click', function(e) {
+	//Titanium.API.info("You clicked the button Regresar");
+	tiempoMoverAboutP = setInterval(function() {
+		moverAboutFuera(datosAbout);
+	}, 2);
+	tiempoMoverAboutE = setInterval(function() {
+		moverBackAboutFuera(btnRegresarAbout);
+	}, 5);
+});
+
+//funcion que despliega los elementos del about de la aplicacion
+function despliegaDetallesAbout() {
+	menu.add(datosAbout);
+	datosAbout.add(infoAbout);
+	datosAbout.add(imgTec);
+	menu.add(btnRegresarAbout);
+	tiempoMoverAboutP = setInterval(function() {
+		moverAbout(datosAbout);
+	}, 2);
+	tiempoMoverAboutE = setInterval(function() {
+		moverBackAbout(btnRegresarAbout);
+	}, 5);
+}
+
+//funcion para mover la pantalla emergente de los detalles del About hacia fuera de la pantalla
+function moverAboutFuera(pantalla) {
+	if (pantalla.left == "100%") {
+		clearInterval(tiempoMoverAboutP);
+		menu.remove(fondoAbout);
+		menu.remove(btnRegresarAbout);
+		menu.remove(datosAbout);
+		banP = true;
+	} else {
+		var avance = parseFloat(pantalla.left.substring(0, 4));
+		avance = avance + 1;
+		pantalla.left = "" + avance + "%";
+	}
+}
+
+//funcion para mover el boton de regresar emergente de los detalles del About hacia fuera de la pantalla
+function moverBackAboutFuera(elemento) {
+	if (elemento.left == "-15%") {
+		clearInterval(tiempoMoverAboutE);
+	} else {
+		var avance = parseFloat(elemento.left.substring(0, 4));
+		avance = avance - 1;
+		elemento.left = "" + avance + "%";
+	}
+}
+
+function moverAbout(pantalla) {
+	if (pantalla.left == "0%") {
+		clearInterval(tiempoMoverAboutP);
+	} else {
+		var avance = parseFloat(pantalla.left.substring(0, 4));
+		avance = avance - 1;
+		pantalla.left = "" + avance + "%";
+	}
+}
+
+function moverBackAbout(elemento) {
+	if (elemento.left == "0%") {
+		clearInterval(tiempoMoverAboutE);
+	} else {
+		var avance = parseFloat(elemento.left.substring(0, 4));
+		avance = avance + 1;
+		elemento.left = "" + avance + "%";
+	}
+}
+
+//Imagen del Tec
+var imgTec = Ti.UI.createImageView({
+	left : "74%",
+	top : "79%",
 	width : "30%",
-	image : 'img/acm_mty.png'
+	image : 'img/itesm.png'
+});
+
+//Etiqueta que contiene el texto del About en general
+var infoAbout = Titanium.UI.createLabel({
+	color : '#000',
+	text : 'Esta es una aplicacion donde se muestran las estadisticas de un evento que convoca a todos los programadores del Tecnológico de Monterrey a resolver una serie de problemas a lo largo del semestre para encontrar a aquellos más destacados.',
+	font : {
+		fontSize : "20%",
+		fontFamily : 'Roboto-Light'
+	},
+	top : "10%",
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+});
+
+//Etiqueta del boton de ranking del dock
+var etiquetaRanking = Titanium.UI.createLabel({
+	color : '#fff',
+	text : 'Ranking',
+	font : {
+		fontSize : "7%",
+		fontFamily : 'Roboto-Thin'
+	},
+	top : "98%",
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+	left : '3.5%'
 });
 
 var btnRanking = Ti.UI.createButton({
-	backgroundImage : 'img/ranking.png',
-	backgroundSelectedImage : 'img/ranking1.png',
+	backgroundImage : 'img/ranking2.png',
+	backgroundSelectedImage : 'img/ranking3.png',
 	top : "91%",
 	left : "0%",
 	height : "9%",
@@ -62,6 +230,11 @@ var btnRanking = Ti.UI.createButton({
 btnRanking.addEventListener('click', function(e) {
 	if (banP && banS) {
 		if (activa != 1) {
+			if(inicio){
+				menu.remove(etiquetaExplicacion);
+				menu.remove(flecha);
+				inicio = false;
+			}
 			banP = false;
 			banS = false;
 			var left = parseFloat(btnRanking.left.substring(0, 4));
@@ -91,18 +264,23 @@ btnRanking.addEventListener('click', function(e) {
 	}
 
 });
-/*var btnRanking = Ti.UI.createImageView({
- top : "90%",
- left : "0%",
- //height: "20%",
- width: "30%",
- backgroundSelectedImage: 'img/ranking1.png',
- image:'img/ranking.png'
- });*/
+
+//Etiqueta del boton de busqueda del dock
+var etiquetaBusqueda = Titanium.UI.createLabel({
+	color : '#fff',
+	text : 'Búsqueda',
+	font : {
+		fontSize : "7%",
+		fontFamily : 'Roboto-Thin'
+	},
+	top : "98%",
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+	left : '33%'
+});
 
 var btnBusqueda = Ti.UI.createButton({
-	backgroundImage : 'img/busqueda.png',
-	backgroundSelectedImage : 'img/busqueda1.png',
+	backgroundImage : 'img/busqueda2.png',
+	backgroundSelectedImage : 'img/busqueda3.png',
 	top : "91%",
 	left : "30%",
 	height : "9%",
@@ -111,6 +289,11 @@ var btnBusqueda = Ti.UI.createButton({
 btnBusqueda.addEventListener('click', function(e) {
 	if (banP && banS) {
 		if (activa != 2) {
+			if(inicio){
+				menu.remove(etiquetaExplicacion);
+				menu.remove(flecha);
+				inicio = false;
+			}
 			banP = false;
 			banS = false;
 			var left = parseFloat(btnBusqueda.left.substring(0, 4));
@@ -139,26 +322,36 @@ btnBusqueda.addEventListener('click', function(e) {
 		}
 	}
 });
-/*var btnBusqueda = Ti.UI.createImageView({
- top : "90%",
- left : "25%",
- //height: "20%",
- width: "30%",
- backgroundSelectedImage: 'img/busqueda1.png',
- image:'img/busqueda.png'
- });*/
+
+//Etiqueta del boton de estadisticas del dock
+var etiquetaEstadisticas = Titanium.UI.createLabel({
+	color : '#fff',
+	text : 'Estadísticas',
+	font : {
+		fontSize : "7%",
+		fontFamily : 'Roboto-Thin'
+	},
+	top : "98%",
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+	left : '59%'
+});
 
 var btnEstadisticas = Ti.UI.createButton({
 	backgroundImage : 'img/estadisticas.png',
 	backgroundSelectedImage : 'img/estadisticas1.png',
 	top : "91%",
 	left : "57%",
-	height : "9%",
+	height : "8%",
 	width : "15%"
 });
 btnEstadisticas.addEventListener('click', function(e) {
 	if (banP && banS) {
 		if (activa != 3) {
+			if(inicio){
+				menu.remove(etiquetaExplicacion);
+				menu.remove(flecha);
+				inicio = false;
+			}
 			banP = false;
 			banS = false;
 			var left = parseFloat(btnEstadisticas.left.substring(0, 4));
@@ -187,36 +380,36 @@ btnEstadisticas.addEventListener('click', function(e) {
 		}
 	}
 });
-/*var btnEstadisticas = Ti.UI.createImageView({
- top : "90%",
- left : "50%",
- //height: "20%",
- width: "30%",
- backgroundSelectedImage: 'img/estadisticas1.png',
- image:'img/estadisticas.png'
- });*/
+
+//Etiqueta del boton de comparacion del dock
+var etiquetaComparacion = Titanium.UI.createLabel({
+	color : '#fff',
+	text : 'Comparación',
+	font : {
+		fontSize : "7%",
+		fontFamily : 'Roboto-Thin'
+	},
+	top : "98%",
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+	left : '86.5%'
+});
 
 var btnComparacion = Ti.UI.createButton({
-	backgroundImage : 'img/comparacion.png',
-	backgroundSelectedImage : 'img/comparacion1.png',
+	backgroundImage : 'img/comparacion2.png',
+	backgroundSelectedImage : 'img/comparacion3.png',
 	top : "91%",
 	left : "85%",
 	height : "9%",
 	width : "15%"
 });
-
-/*var btnComparacion = Ti.UI.createImageView({
- top : "90%",
- left : "75%",
- //height: "20%",
- width: "30%",
- backgroundSelectedImage: 'img/comparacion1.png',
- image:'img/comparacion.png'
- });*/
-
 btnComparacion.addEventListener('click', function(e) {
 	if (banP && banS) {
 		if (activa != 4) {
+			if(inicio){
+				menu.remove(etiquetaExplicacion);
+				menu.remove(flecha);
+				inicio = false;
+			}
 			banP = false;
 			banS = false;
 			var left = parseFloat(btnComparacion.left.substring(0, 4));
@@ -246,8 +439,9 @@ btnComparacion.addEventListener('click', function(e) {
 	}
 });
 
+
+//Funcion que mueve la flecha que indica en que pagina se encuentra el usuario
 function mover(left) {
-	//alert (""+left+" "+a);
 	if (a >= (left - 1) && a <= (left + 1)) {
 		clearInterval(tiempoMover);
 		banS = true;
@@ -264,7 +458,6 @@ function mover(left) {
 }
 
 function moverPantallaE(pantalla) {
-	//alert (""+left+" "+a);
 	if (pantalla.left == "0%") {
 		clearInterval(tiempoPantallaE);
 		banP = true;
@@ -276,7 +469,6 @@ function moverPantallaE(pantalla) {
 }
 
 function moverPantallaS(pantalla, n) {
-	//alert (""+left+" "+a);
 	if (pantalla.left == "-100%") {
 		if (n == 2) {
 			menu.remove(busqueda);
@@ -295,28 +487,56 @@ function moverPantallaS(pantalla, n) {
 	}
 }
 
+//Etiqueta donde se le da una breve introduccion al usuario
+var etiquetaExplicacion = Titanium.UI.createLabel({
+	color : '#000',
+	text : 'Presiona cualquiera de las opciones de abajo...',
+	font : {
+		fontSize : "20%",
+		fontFamily : 'Roboto-Light'
+	},
+	top : "34%",
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+	left : '33%'
+});
+
+//IFlecha roja que se carga al inicio de la aplicacion para indicaciones al usuario
+var flecha = Ti.UI.createImageView({
+	top : "46.5%",
+	left : "50%",
+	//height: "10%",
+	width : "30%",
+	image : 'img/flecha.png'
+});
+
+//Fondo de la barra de opciones de la parte de abajo
 var fondoBarra = Ti.UI.createImageView({
 	top : "90%",
 	left : "0%",
 	height : "10%",
 	width : "100%",
-	image : 'img/fondoBarra.png'
+	backgroundColor : '#333333',
 });
 
+//Imagen que indica la pagina en donde se encuentra el usuario
 var select = Ti.UI.createImageView({
 	top : "89.5%",
 	left : "5%",
-	//height: "10%",
-	width : "4%",
+	width : "5%",
 	image : 'img/select.png'
 });
 
-//menu.add(itesmAcm);
 menu.add(fondoBarra);
 menu.add(btnRanking);
+menu.add(flecha);
+menu.add(etiquetaExplicacion);
 menu.add(btnComparacion);
 menu.add(btnBusqueda);
 menu.add(btnEstadisticas);
+menu.add(etiquetaRanking);
+menu.add(etiquetaComparacion);
+menu.add(etiquetaBusqueda);
+menu.add(etiquetaEstadisticas);
 menu.add(select);
 menu.open();
 

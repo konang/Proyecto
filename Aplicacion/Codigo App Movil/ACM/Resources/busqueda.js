@@ -7,17 +7,26 @@ var busqueda = Titanium.UI.createView({
 	top : 0
 });
 
+//Imagen de la pantalla Busqueda que se despliega en la esquina derecha inferior
+var imgBusqueda = Ti.UI.createImageView({
+	left : "74%",
+	top : "70%",
+	//height: "20%",
+	opacity: 0.5,
+	width : "30%",
+	image : 'img/imgBusqueda.png'
+});
+
 //Etiqueta que contiene el texto del titulo de la pantalla
 var tituloBusqueda = Titanium.UI.createLabel({
 	color : '#000',
-	text : 'Busqueda de participante por...',
+	text : 'Búsqueda de participante por...',
 	font : {
 		fontSize : "25%",
 		fontFamily : 'Roboto-Medium'
 	},
 	top : "12%",
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
-	//width:'auto'
 });
 
 //Elemento donde se seleeciona el criterio de busqueda de un participante
@@ -26,7 +35,6 @@ var pickerBusqueda = Ti.UI.createPicker({
 	width : "75%"
 });
 pickerBusqueda.addEventListener('change', function(e) {
-	//alert(""+e.rowIndex);
 	if (e.rowIndex == 0 || e.rowIndex == 2) {
 		fieldBuscar.keyboardType = Titanium.UI.KEYBOARD_NUMBER_PAD;
 	} else {
@@ -56,33 +64,22 @@ var fieldBuscar = Ti.UI.createTextField({
 	borderStyle : Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
 	color : '#336699',
 	top : "45%",
-	//left: "10%",
 	softKeyboardOnFocus : Ti.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS,
 	width : "75%",
 	height : "12%"
 });
-/*fieldBuscar.addEventListener('focus', function() {
-busqueda.animate({bottom: 166, duration:500});
-});
-
-fieldBuscar.addEventListener('blur', function() {
-busqueda.animate({bottom: 0, duration:500});
-});*/
 
 // Boton para activar la busqueda del participante
 var btnBuscar = Titanium.UI.createButton({
-	//title: 'Buscar',
 	top : "80%",
-	//left: "10%",
 	width : "20%",
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
-	backgroundImage : "images/action_search.png",
+	backgroundImage : "img/action_search.png",
 	borderColor : '#fff',
-	backgroundSelectedImage : "images/action_search_dis.png",
+	backgroundSelectedImage : "img/action_search_dis.png",
 	height : "15%"
 })
 btnBuscar.addEventListener('click', function(e) {
-	//toast.show();
 	if (banP) {
 		if (Titanium.Network.networkType != Titanium.Network.NETWORK_NONE) {
 			toast.show();
@@ -97,12 +94,8 @@ btnBuscar.addEventListener('click', function(e) {
 
 //funcion para buscar un participante
 function busquedaParticipante() {
-	//tablaRanking.setData([]);
-	//alert(""+pickerBusqueda.getSelectedRow(0).title);
 	busquedaPhp.getBusquedaPhp(pickerBusqueda.getSelectedRow(0).title, fieldBuscar.value, function(response) {
-		//getting an item out of the json response
 		despliegaDetallesParticipante(response);
-		//alert("" + response.participantes[0].nom);
 
 	}, function(e) {
 		Titanium.UI.createAlertDialog({
@@ -132,7 +125,6 @@ var datosBusqueda = Titanium.UI.createView({
 	left : "100%"
 })
 datosBusqueda.addEventListener('swipe', function(e) {
-	//Titanium.API.info("You clicked the button Regresar");
 	tiempoMoverBusquedaP = setInterval(function() {
 		moverBusquedaFuera(datosBusqueda);
 	}, 2);
@@ -143,17 +135,15 @@ datosBusqueda.addEventListener('swipe', function(e) {
 
 // Boton para regresar a la pantalla anterior
 var btnRegresarBusqueda = Titanium.UI.createButton({
-	//title: 'Regresar',
 	top : 0,
 	left : "-15%",
 	width : "15%",
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
 	height : "10%",
-	backgroundSelectedImage : "images/back.png",
-	backgroundImage : "images/back1.png"
+	backgroundSelectedImage : "img/back.png",
+	backgroundImage : "img/back1.png"
 })
 btnRegresarBusqueda.addEventListener('click', function(e) {
-	//Titanium.API.info("You clicked the button Regresar");
 	tiempoMoverBusquedaP = setInterval(function() {
 		moverBusquedaFuera(datosBusqueda);
 	}, 2);
@@ -163,7 +153,6 @@ btnRegresarBusqueda.addEventListener('click', function(e) {
 });
 
 function despliegaDetallesParticipante(response) {
-
 	busqueda.add(btnRegresarBusqueda);
 	cargarDatosDetalleB(response);
 	menu.add(datosBusqueda);
@@ -226,6 +215,7 @@ function cargarBusqueda() {
 	busqueda.add(tituloBusqueda);
 	busqueda.add(fieldBuscar);
 	busqueda.add(btnBuscar);
+	busqueda.add(imgBusqueda);
 	busqueda.add(pickerBusqueda);
 	busqueda.left = "100%";
 	busqueda.width = "100%";

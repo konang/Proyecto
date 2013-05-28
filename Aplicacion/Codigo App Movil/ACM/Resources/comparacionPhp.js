@@ -19,7 +19,6 @@ var comparacionPhp = (function() {
 	api.xhr.open('GET', url);
     api.xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-   	//Ti.API.info(hola);
     api.xhr.onerror = function(e){
         Ti.API.error("API ERROR " + e.error);
         if (error) {
@@ -32,6 +31,36 @@ var comparacionPhp = (function() {
         if (success) {
             var jsonResponse = JSON.parse(this.responseText);
             //alert(""+jsonResponse);
+            success(jsonResponse);
+        }
+    };
+                   
+    api.xhr.send();
+ };
+ 
+ api.getPuntosPhp = function(detallePuntos1, detallePuntos2, success, error) {    
+    if(api.xhr == null){
+        api.xhr = Titanium.Network.createHTTPClient();
+    }   
+	
+    var url = "http://acmmty.260mb.org/acm/comparacion.php?";    
+	url = url + "detallePuntos1=" + detallePuntos1;
+	url = url + "&detallePuntos2=" + detallePuntos2;
+    
+	api.xhr.open('GET', url);
+    api.xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+    api.xhr.onerror = function(e){
+        Ti.API.error("API ERROR " + e.error);
+        if (error) {
+            error(e);
+        }
+    };
+    
+    api.xhr.onload = function(){
+        Ti.API.debug("API response: " + this.responseText);
+        if (success) {
+            var jsonResponse = JSON.parse(this.responseText);
             success(jsonResponse);
         }
     };

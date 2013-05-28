@@ -1,12 +1,3 @@
-/*var tableData = [{
- title : 'Apples'
- }, {
- title : 'Bananas'
- }, {
- title : 'Carrots'
- }, {
- title : 'Potatoes'
- }];*/
 var tableDataProblemas = [];
 var indice = 0;
 var tiempoMoverP;
@@ -18,6 +9,15 @@ var rankings = Titanium.UI.createView({
 	top : 0
 });
 
+//Imagen de la pantalla Rankings que se despliega en la esquina derecha inferior
+var imgRanking = Ti.UI.createImageView({
+	left : "71%",
+	top : "70%",
+	opacity: 0.5,
+	width : "30%",
+	image : 'img/imgRanking.png'
+});
+
 //Etiqueta que contiene el texto del titulo de la pantalla
 var tituloRankings = Titanium.UI.createLabel({
 	color : '#000',
@@ -27,29 +27,23 @@ var tituloRankings = Titanium.UI.createLabel({
 		fontFamily : 'Roboto-Medium'
 	},
 	top : "7%",
-	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
-	//width:'auto'
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER
 });
 
 //Barra de busqueda de competidores
 var buscador = Titanium.UI.createSearchBar({
 	barColor : '#fff',
 	height : "30%",
-	//showCancel : true,
-	top : 0,
-	//borderRadius: 10,
-	//hintText: "Busca a alguien"
+	top : 0
 });
 
 //se crea la tabla donde se mostrara el ranking actual del concurso
 var tablaRanking = Titanium.UI.createTableView({
-	//search : buscador,
 	width : "85%",
 	height : "75%",
 	top : "15%",
 	left : "7.5%",
 
-	//data : tableData
 });
 tablaRanking.addEventListener('click', function(e) {
 	if (banP) {
@@ -62,21 +56,16 @@ tablaRanking.addEventListener('click', function(e) {
 			alert("No hay conexion a internet");
 		}
 	}
-	//alert("" + e.rowData.accessibilityValue);
 });
 
 function obtenerDetalles(dato) {
-	//tablaRanking.setData([]);
 	rankingDetallePhp.getDetallePhp(dato, function(response) {
-		//getting an item out of the json response
 		var pos = 0;
-		//alert("" + response.participantes[0].nom);
 		despliegaDetalles(response);
 
 	}, function(e) {
 		Titanium.UI.createAlertDialog({
 			title : "Error con la conexión a la base de datos",
-			//message : e,
 			buttonNames : ['OK']
 		}).show();
 		banP = true;
@@ -98,7 +87,6 @@ var datos = Titanium.UI.createView({
 	left : "100%"
 })
 datos.addEventListener('swipe', function(e) {
-	//Titanium.API.info("You clicked the button Regresar");
 	tiempoMoverP = setInterval(function() {
 		moverDetallesFuera(datos);
 	}, 2);
@@ -109,17 +97,15 @@ datos.addEventListener('swipe', function(e) {
 
 // Boton para regresar a la pantalla anterior
 var btnRegresarDetalles = Titanium.UI.createButton({
-	//title: 'Regresar',
 	top : 0,
 	left : "-15%",
 	width : "15%",
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
 	height : "10%",
-	backgroundSelectedImage : "images/back.png",
-	backgroundImage : "images/back1.png"
+	backgroundSelectedImage : "img/back.png",
+	backgroundImage : "img/back1.png"
 })
 btnRegresarDetalles.addEventListener('click', function(e) {
-	//Titanium.API.info("You clicked the button Regresar");
 	tiempoMoverP = setInterval(function() {
 		moverDetallesFuera(datos);
 	}, 2);
@@ -142,7 +128,6 @@ function despliegaDetalles(response) {
 }
 
 function moverDetallesFuera(pantalla) {
-	//alert (""+left+" "+a);
 	if (pantalla.left == '100%') {
 		clearInterval(tiempoMoverP);
 		rankings.remove(fondo);
@@ -157,19 +142,16 @@ function moverDetallesFuera(pantalla) {
 }
 
 function moverBackFuera(elemento) {
-	//alert (""+left+" "+a);
 	if (elemento.left == "-15%") {
 		clearInterval(tiempoMoverE);
 	} else {
 		var avance = parseFloat(elemento.left.substring(0, 4));
-		//alert("" + avance);
 		avance = avance - 1;
 		elemento.left = "" + avance + "%";
 	}
 }
 
 function moverDetalles(pantalla) {
-	//alert (""+left+" "+a);
 	if (pantalla.left == "0%") {
 		clearInterval(tiempoMoverP);
 	} else {
@@ -180,23 +162,18 @@ function moverDetalles(pantalla) {
 }
 
 function moverBack(elemento) {
-	//alert (""+left+" "+a);
 	if (elemento.left == "0%") {
 		clearInterval(tiempoMoverE);
 	} else {
 		var avance = parseFloat(elemento.left.substring(0, 4));
-		//alert("" + avance);
 		avance = avance + 1;
 		elemento.left = "" + avance + "%";
 	}
 }
 
 function obtenerRanking() {
-	//tablaRanking.setData([]);
 	ranking.getRanking(function(response) {
-		//getting an item out of the json response
 		var pos = 0;
-		//alert(""+response.participantes.length);
 		for ( pos = 0; pos < response.participantes.length; pos++) {
 			var row = Ti.UI.createTableViewRow({
 				accessibilityValue : "" + (pos + 1),
@@ -210,7 +187,6 @@ function obtenerRanking() {
 			var columnR1 = Ti.UI.createView({
 
 				left : '25%',
-				//accessibilityValue : "" + (pos + 1)
 			});
 			var label = Ti.UI.createLabel({
 				text : '' + response.participantes[pos].nom,
@@ -219,8 +195,7 @@ function obtenerRanking() {
 					color : "#000",
 					fontFamily : 'Roboto-Condensed'
 				},
-				left : 0,
-				//width : 0
+				left : 0
 			});
 			var columnR2 = Ti.UI.createView({
 				//height : '25%',
@@ -234,47 +209,25 @@ function obtenerRanking() {
 					color : "#000",
 					fontFamily : 'Roboto-Condensed'
 				},
-				left : 0,
+				left : 0
 			});
-			//var row1 = Ti.UI.createTableViewRow({accessibilityValue : "" + (pos + 1)});;
-			/*if (response.participantes[pos].pos == 1) {
-			 imgPos.image = 'img/1st_place.png';
-			 }
-			 if (response.participantes[pos].pos == 2) {
-			 imgPos.image = 'img/2nd_place.png';
-			 }
-			 if (response.participantes[pos].pos == 3) {
-			 imgPos.image = 'img/3rd_place.png';
-			 }*/
 			columnR1.add(label);
 			columnR2.add(imgPos);
-			//row.add(columnR2);
-			//row.add(columnR1);
-			//row.height = '25%';
-			//alert("" + response.participantes[pos].nom);
-			//seccionNombres.add(row);
-			//seccionPosiciones.add(row1);
-			//tableDataProblemas.push(row);
 			tablaRanking.appendRow(row);
-			//tableData.push(row);
 		}
-		//tablaRanking.data = [seccionPosiciones, seccionNombres];
 
 	}, function(e) {
 		Titanium.UI.createAlertDialog({
 			title : "Error con la conexión a la base de datos",
-			//message : e,
 			buttonNames : ['OK']
 		}).show();
 	});
-	//tablaRanking.setData(tableDataProblemas);
 }
 
 function cargarRankings() {
 	rankings.left = "100%";
 	rankings.width = "100%";
-	//obtenerRanking();
 	rankings.add(tablaRanking);
+	rankings.add(imgRanking);
 	rankings.add(tituloRankings);
-	//llenarTabla(tableData);
 }

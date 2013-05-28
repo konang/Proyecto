@@ -9,14 +9,12 @@ var ranking = (function() {
     if(api.xhr == null){
         api.xhr = Titanium.Network.createHTTPClient();
     }   
-	
     var url = "http://acmmty.260mb.org/acm/getInfo.php?";    
 	url = url + "ranking=true";
     
 	api.xhr.open('GET', url);
     api.xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-   	//Ti.API.info(hola);
     api.xhr.onerror = function(e){
         Ti.API.error("API ERROR " + e.error);
         if (error) {
@@ -28,11 +26,9 @@ var ranking = (function() {
         Ti.API.debug("API response: " + this.responseText);
         if (success) {
             var jsonResponse = JSON.parse(this.responseText);
-            //alert(""+jsonResponse);
             success(jsonResponse);
         }
     };
-                   
     api.xhr.send();
  };
  

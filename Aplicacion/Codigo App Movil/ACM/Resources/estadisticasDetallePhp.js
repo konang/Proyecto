@@ -22,7 +22,6 @@ var estadisticasDetallePhp = (function() {
 	apiE.xhr.open('GET', url);
     apiE.xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-   	//Ti.API.info(hola);
     apiE.xhr.onerror = function(e){
         Ti.API.error("API ERROR " + e.error);
         if (error) {
@@ -34,7 +33,6 @@ var estadisticasDetallePhp = (function() {
         Ti.API.debug("API response: " + this.responseText);
         if (success) {
             var jsonResponse = JSON.parse(this.responseText);
-            //alert(""+jsonResponse);
             success(jsonResponse);
         }
     };
